@@ -12,15 +12,15 @@ import com.example.myshop.databinding.ItemLoadingBinding
 import com.example.myshop.databinding.ItemProductBinding
 import com.squareup.picasso.Picasso
 
-class ProductAdapter(private val postCallback: ProductViewHolder.Callback) :
+class ProductAdapter(private val productCallback: ProductViewHolder.Callback) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     private var productItems = emptyList<ProductModel>()
     private lateinit var state: State
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setProduct(feedItems: List<ProductModel>) {
-        this.productItems = feedItems
+    fun setProduct(productItems: List<ProductModel>) {
+        this.productItems = productItems
         state = State.DISPLAY_ITEMS
         notifyDataSetChanged()
     }
@@ -40,7 +40,7 @@ class ProductAdapter(private val postCallback: ProductViewHolder.Callback) :
             val binding = ItemProductBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
-            ProductViewHolder(binding, postCallback)
+            ProductViewHolder(binding, productCallback)
         } else if (viewType == TYPE_EMPTY) {
             val binding = ItemEmptyBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false

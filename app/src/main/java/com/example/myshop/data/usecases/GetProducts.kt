@@ -11,10 +11,10 @@ interface GetProducts {
 
 class GetProductsImpl @Inject constructor(
     private val repository: ProductsRepository,
-    private val postMapper: ProductModelDataMapper,
+    private val productMapper: ProductModelDataMapper,
 
     ) : GetProducts {
 
     override suspend fun call() =
-        postMapper.transform(repository.getProducts())
+        productMapper.transform(repository.getProducts())
 }
