@@ -49,4 +49,9 @@ object AppModule {
     @Singleton
     fun provideGetProducts(useCase: GetProductsImpl): GetProducts = useCase
 
+    @Provides
+    @Singleton
+    internal fun providesDispatchersProvider(dispatchersProvider: DispatchersProviderImpl): DispatchersProvider = dispatchersProvider
+
+
 }

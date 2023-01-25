@@ -8,10 +8,12 @@ import com.example.myshop.data.Resource
 import com.example.myshop.data.model.ProductModel
 import com.example.myshop.data.usecases.GetProducts
 import com.example.myshop.di.DispatchersProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@HiltViewModel
 class ProductViewModel @Inject constructor(
     private val getProducts: GetProducts,
     private val dispatchersProvider: DispatchersProvider
@@ -25,14 +27,11 @@ class ProductViewModel @Inject constructor(
 
     fun onViewCreated() {
         _productItems.postValue(Resource.loading())
+        loadItems()
+    }
 
-        viewModelScope.launch(dispatchersProvider.io) {
-            val items = getProducts.call().toMutableList()
-
-            withContext(dispatchersProvider.main) {
-                _productItems.postValue(Resource.success(items))
-            }
-        }
+    fun onScreenRefresh() {
+        loadItems()
     }
 
     fun onProductRemoved(product: ProductModel) {
@@ -45,4 +44,13 @@ class ProductViewModel @Inject constructor(
         _itemRemoved.value = position
     }
 
+    private fun loadItems() {
+        viewModelScope.launch(dispatchersProvider.io) {
+            val items = getProducts.call().toMutableList()
+
+            withContext(dispatchersProvider.main) {
+                _productItems.postValue(Resource.success(items))
+            }
+        }
+    }
 }
