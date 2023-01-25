@@ -1,18 +1,17 @@
 package com.example.myshop
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.myshop.ui.main.MainFragment
+import androidx.appcompat.app.AppCompatActivity
+import com.example.myshop.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
-        }
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }

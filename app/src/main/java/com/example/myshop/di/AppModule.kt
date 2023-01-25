@@ -2,6 +2,10 @@ package com.example.myshop.di
 
 import com.example.myshop.BuildConfig
 import com.example.myshop.data.Api
+import com.example.myshop.data.NetworkHandler
+import com.example.myshop.data.usecases.GetProducts
+import com.example.myshop.data.usecases.GetProductsImpl
+import com.example.myshop.framework.NetworkHandlerImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -36,5 +40,13 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideNetworkHandler(networkHandlerImpl: NetworkHandlerImpl): NetworkHandler = networkHandlerImpl
+
+    @Provides
+    @Singleton
+    fun provideGetProducts(useCase: GetProductsImpl): GetProducts = useCase
 
 }
