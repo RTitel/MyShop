@@ -7,6 +7,7 @@ import javax.inject.Inject
 class ProductModelDataMapper @Inject constructor() {
     fun transform(product: Product): ProductModel =
         ProductModel(
+            product.productId,
             product.productBrand,
             product.productName,
             product.productImages?.thumb?.firstOrNull()
