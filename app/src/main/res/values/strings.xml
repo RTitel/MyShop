@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyShop</string>
+    <string name="error_message_product_items">Cannot load products. The reason may be:\nNo products\nNo network connectivity\nAn internal error</string>
 </resources>
